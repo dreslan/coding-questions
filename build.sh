@@ -2,7 +2,9 @@
 set -x
 
 # get changed files
-FILES=$(git diff --diff-filter=M --name-only)
+git remote set-branches --add origin master
+git fetch
+FILES=$(git diff --diff-filter=M --name-only origin/master)
 echo $FILES
 
 # from changed files, construct list of those with tests
