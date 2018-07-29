@@ -1,4 +1,5 @@
 #!/bin/bash
+set -x
 
 # get changed files
 FILES=$(git diff --diff-filter=M --name-only origin/master..master)
