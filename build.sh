@@ -3,7 +3,7 @@ set -x
 
 # get changed files
 git checkout origin/master
-FILES=$(git diff --diff-filter=M --name-only ..$TRAVIS_COMMIT)
+FILES=$(git diff --diff-filter=M --name-only $TRAVIS_COMMIT_RANGE)
 echo $FILES
 
 # from changed files, construct list of those with tests
