@@ -2,9 +2,10 @@
 set -x
 
 # get changed files
-#git remote set-branches --add origin master
-#git fetch
-FILES=$(git diff --diff-filter=M --name-only $TRAVIS_COMMIT)
+git remote set-branches --add origin master
+git fetch origin/master
+git checkout origin/master
+FILES=$(git diff --diff-filter=M --name-only origin/master..master)
 echo $FILES
 
 # from changed files, construct list of those with tests
