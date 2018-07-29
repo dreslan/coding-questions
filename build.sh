@@ -1,12 +1,23 @@
 #!/bin/bash
 
+# get changed files
 FILES=$(git diff --diff-filter=M --name-only origin/master..master)
 
-for path in ${FILES[@]}
+# from changed files, construct list of those with tests
+TEST_FILES=()
+for rel_path in ${FILES[*]}
 do
-  set +e
-  python -m pytest -v $path
-  set -e
+    # if the changed file has a corresponding test file we want to test it
+    if [[ -f ${rel_path%.*}_tests.py ]]
+    then
+        TEST_FILES+=(${rel_path%.*}_tests.py)
+    fi
 done
 
-#python -m pytest -v ./question_2/question_2_tests.py
+# run tests against files that have been changed AND have tests associated with them
+for rel_path in ${TEST_FILES[*]}
+do
+  #set +e
+  python -m pytest -v $rel_path
+  #set -e
+done
