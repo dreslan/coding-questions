@@ -2,6 +2,7 @@
 
 # get changed files
 FILES=$(git diff --diff-filter=M --name-only origin/master..master)
+echo $FILES
 
 # from changed files, construct list of those with tests
 TEST_FILES=()
@@ -13,6 +14,7 @@ do
         TEST_FILES+=(${rel_path%.*}_tests.py)
     fi
 done
+echo $TEST_FILES
 
 # run tests against files that have been changed AND have tests associated with them
 for rel_path in ${TEST_FILES[*]}
